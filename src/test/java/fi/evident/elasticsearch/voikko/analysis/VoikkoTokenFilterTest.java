@@ -113,11 +113,9 @@ public class VoikkoTokenFilterTest {
                 token("voikon", "Voikko", 0),
                 token("taivutusta", "taivuttu", 1),
                 token("taivutusta", "taivutus", 0),
-                token("taivutusta", "taivutus", 0),
                 token("tällä", "tämä", 1),
                 token("tavalla", "tapa", 1),
-                token("yksinkertaisesti", "yksinkertainen", 1),
-                token("yksinkertaisesti", "yksinkertainen", 0));
+                token("yksinkertaisesti", "yksinkertainen", 1));
     }
 
     @Test
@@ -131,11 +129,9 @@ public class VoikkoTokenFilterTest {
                 token("voikon", "Voikko", 0),
                 token("taivutusta", "taivuttu", 1),
                 token("taivutusta", "taivutus", 0),
-                token("taivutusta", "taivutus", 0),
                 token("tällä", "tämä", 1),
                 token("tavalla", "tapa", 1),
-                token("yksinkertaisesti", "yksinkertainen", 1),
-                token("yksinkertaisesti", "yksinkertainen", 0));
+                token("yksinkertaisesti", "yksinkertainen", 1));
     }
 
     @Test
@@ -144,6 +140,25 @@ public class VoikkoTokenFilterTest {
         assertTokens("tekokuusta keinokuuhun",
                 token("tekokuusta", "tekokuu", 1),
                 token("keinokuuhun", "keinokuu", 1));
+    }
+
+    @Test
+    public void expandedCompoundWords() {
+        settings.put("index.analysis.filter.myFilter.expandCompounds", true);
+        assertTokens("isoisälle", token("isoisälle", "isoisä", 1));
+        assertTokens("tekokuusta keinokuuhun",
+                token("tekokuusta", "tekokuu", 1),
+                token("tekokuusta", "teko", 0),
+                token("tekokuusta", "kuu", 0),
+                token("tekokuusta", "kuusi", 0),
+                token("keinokuuhun", "keinokuu", 1),
+                token("keinokuuhun", "keino", 0),
+                token("keinokuuhun", "kuu", 0)
+                     );
+        assertTokens("hammaslääkäri",
+                token("hammaslääkäri", "hammaslääkäri", 1),
+                token("hammaslääkäri", "hammas", 0),
+                token("hammaslääkäri", "lääkäri", 0));
     }
 
     @Test
