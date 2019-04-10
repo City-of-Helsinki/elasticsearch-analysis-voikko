@@ -91,6 +91,7 @@ public class VoikkoTokenFilterTest {
                 token("tällä", "tämä", 1),
                 token("tavalla", "tapa", 1),
                 token("yksinkertaisesti", "yksinkertainen", 1));
+
     }
 
     @Test
@@ -116,6 +117,11 @@ public class VoikkoTokenFilterTest {
                 token("tällä", "tämä", 1),
                 token("tavalla", "tapa", 1),
                 token("yksinkertaisesti", "yksinkertainen", 1));
+
+        assertTokens("Viiskulman keskusterveysasema",
+                     token("Viiskulman", "viiskulman", 1),
+                     token("Viiskulman", "viiskulma", 0),
+                     token("keskusterveysasema", "keskusterveysasema", 0));
     }
 
     @Test
