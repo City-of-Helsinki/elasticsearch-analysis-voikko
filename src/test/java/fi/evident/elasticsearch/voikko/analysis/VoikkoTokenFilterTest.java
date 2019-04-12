@@ -87,10 +87,11 @@ public class VoikkoTokenFilterTest {
         assertTokens("Testaan voikon taivutusta tällä tavalla yksinkertaisesti.",
                 token("Testaan", "testata", 1),
                 token("voikon", "voikko", 1),
-                token("taivutusta", "taivuttu", 1),
+                token("taivutusta", "taivutus", 1),
                 token("tällä", "tämä", 1),
                 token("tavalla", "tapa", 1),
                 token("yksinkertaisesti", "yksinkertainen", 1));
+
     }
 
     @Test
@@ -111,13 +112,15 @@ public class VoikkoTokenFilterTest {
                 token("Testaan", "testata", 1),
                 token("voikon", "voikko", 1),
                 token("voikon", "Voikko", 0),
-                token("taivutusta", "taivuttu", 1),
-                token("taivutusta", "taivutus", 0),
-                token("taivutusta", "taivutus", 0),
+                token("taivutusta", "taivutus", 1),
+                token("taivutusta", "taivuttu", 0),
                 token("tällä", "tämä", 1),
                 token("tavalla", "tapa", 1),
-                token("yksinkertaisesti", "yksinkertainen", 1),
-                token("yksinkertaisesti", "yksinkertainen", 0));
+                token("yksinkertaisesti", "yksinkertainen", 1));
+
+        assertTokens("Viiskulman keskusterveysasema",
+                     token("Viiskulman", "Viiskulman", 1),
+                     token("keskusterveysasema", "keskusterveysasema", 1));
     }
 
     @Test
@@ -129,13 +132,11 @@ public class VoikkoTokenFilterTest {
                 token("Testaan", "testata", 1),
                 token("voikon", "voikko", 1),
                 token("voikon", "Voikko", 0),
-                token("taivutusta", "taivuttu", 1),
-                token("taivutusta", "taivutus", 0),
-                token("taivutusta", "taivutus", 0),
+                token("taivutusta", "taivutus", 1),
+                token("taivutusta", "taivuttu", 0),
                 token("tällä", "tämä", 1),
                 token("tavalla", "tapa", 1),
-                token("yksinkertaisesti", "yksinkertainen", 1),
-                token("yksinkertaisesti", "yksinkertainen", 0));
+                token("yksinkertaisesti", "yksinkertainen", 1));
     }
 
     @Test
